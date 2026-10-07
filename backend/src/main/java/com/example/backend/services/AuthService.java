@@ -1,5 +1,8 @@
 package com.example.backend.services;
 
+import com.example.backend.exceptions.InvalidPasswordException;
+import com.example.backend.exceptions.UserAlreadyExistsException;
+import com.example.backend.exceptions.UserNotFoundException;
 import com.example.backend.model.User;
 import com.example.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +20,7 @@ public class AuthService {
 
     public User createUser(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Email already in use: " + user.getEmail());
+            throw new UserAlreadyExistsException("An account with email '" + user.getEmail() + "' already exists.");
         }
         return userRepository.save(user);
     }
@@ -36,8 +39,14 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public User getUserByEmailAndPassword(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password)
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("Account does not exist with email: " + email));
+
+        if (!user.getPassword().equals(password)) {
+            throw new InvalidPasswordException("Invalid password provided.");
+        }
+
+        return user;
     }
 
 }
