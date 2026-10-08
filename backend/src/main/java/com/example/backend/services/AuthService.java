@@ -26,18 +26,6 @@ public class AuthService {
     }
 
     @Transactional(readOnly = true)
-    public User getUserById(Integer userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
-    }
-
-    @Transactional(readOnly = true)
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
-    }
-
-    @Transactional(readOnly = true)
     public User getUserByEmailAndPassword(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Account does not exist with email: " + email));
