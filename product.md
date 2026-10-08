@@ -60,4 +60,32 @@ A feature is done when the following are true
 - As a user i want to be able to create an account so that i can securely use the app.
 - As a user i want to be able to login in my account so that i can securely use the app.
 
+#### Sprint 1 Review
+
+**Sprint Goal:** Establish initial project repository, implement core authentication features, and set up automated CI testing.
+
+- **Completed User Stories:**
+  - Story 1: Create Account (8 Story Points) — Service logic & unit tests complete.
+  - Story 2: User Login (3 Story Points) — Service logic & unit tests complete.
+- **DevOps Deliverables:**
+  - Configured GitHub Actions CI workflow triggering on push.
+  - Executed automated service-layer unit tests in isolated build environment.
+
+
+---
+
+#### Sprint 1 Retrospective
+
+**1. Sprint Metrics**
+- Planned Velocity: 11 points (2 stories) | Delivered Velocity: 11 points
+- CI Runs: 3 runs (1 success, 2 failures due to unverified local commits)
+
+**2. Reflection**
+- **What went well:** the user stories scenario definition made writing service unit tests fast and straightforward.
+- **What caused friction:** Underestimated the time required for initial CI setup and configuration. Pushing code without local test verification caused 2 unnecessary CI pipeline failures.
+
+**3. Action Items for Sprint 2**
+1. **Enforce Local Test Verification:** Always execute local test suite before pushing to `dev` to maintain a green CI pipeline.
+2. **Implement API Integration Testing:** Expand test coverage from service-layer unit tests to HTTP endpoint integration tests for Sprint 2 user stories.
+
 
